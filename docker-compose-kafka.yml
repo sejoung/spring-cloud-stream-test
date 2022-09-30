@@ -127,7 +127,24 @@ services:
       - zoo2:zoo2
       - zoo3:zoo3
     environment:
-      ZK_HOSTS: "zoo1:2181"
+      ZK_HOSTS: "zoo1:2181,zoo2:2182,zoo3:2183"
+    depends_on:
+      - zoo1
+      - zoo2
+      - zoo3
+      - kafka1
+      - kafka2
+      - kafka3
+  kafka-ui:
+    image: provectuslabs/kafka-ui
+    container_name: kafka-ui
+    ports:
+      - "8989:8080"
+    restart: always
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka1:19092,kafka2:19093,kafka3:19094
+      - KAFKA_CLUSTERS_0_ZOOKEEPER=zoo1:2181,zoo2:2182,zoo3:2183
     depends_on:
       - zoo1
       - zoo2

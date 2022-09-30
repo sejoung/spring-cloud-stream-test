@@ -2,12 +2,6 @@ spring:
   cloud:
     stream:
       kafka:
-        bindings:
-          disabledAllWalletConnects-out-0:
-            producer:
-              configuration:
-                key.serializer: org.apache.kafka.common.serialization.StringSerializer
-              compression-type: zstd
         binder:
           brokers:
             - localhost:9092
